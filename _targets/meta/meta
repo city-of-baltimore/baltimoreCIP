@@ -1,6 +1,8 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
+.Random.seed|object|c243ba9334fccd64|||||||||||||||
 budget_reports|stem|e8a245bb829ba742|6989f99c5f325fb2|41cae5a289ea291a|-827904008||t19915.1580363337s|501e435e872586d5|346803|rds|local|vector|||1.093||
 budget_reports_2014_2024|stem|3133fa6ced07d21d|19b24a5fe911b0c0|a4eb2d3fb181747b|-799827718||t19915.1630416823s|3105dd92b3f35305|328040|rds|local|vector|||0.271||
+budget_reports_2014_2024_dict|stem|c18c7d08b638bdd2|4299f5b7af213fff|717e7aef66c5f482|-1456025355||t19920.649874715s|ea1841c12f6cfacd|1535|rds|local|vector|||0.752||
 budget_reports_2014_2024_src|stem|e8a245bb829ba742|6989f99c5f325fb2|41cae5a289ea291a|723174670||t19915.1616982377s|501e435e872586d5|346803|rds|local|vector|||0.817||
 build_bureau_xwalk|function|c7f801058d330868|||||||||||||||
 bureau_xwalk_2014_2024|stem|2868bfd7e4cb34e4|09b5809e0a30bd29|a8ab767484062528|736561052||t19914.8687178093s|6b659c2397e3be5d|698|rds|local|vector|||0.565||
@@ -19,6 +21,7 @@ get_pre_2014_project_details|function|62b6a03b6bdfc873|||||||||||||||
 get_pre_2014_project_funding|function|5f1bf7f8b579dd5a|||||||||||||||
 get_pre_2014_project_info|function|556387b77fb7f05b|||||||||||||||
 join_cip_budget_report_data|function|a8bc6160d22a274a|||||||||||||||
+load_cip_dict|function|dd8f451157047f4e|||||||||||||||
 mutate_trim_squish|function|20f4ec4fcd1bacb0|||||||||||||||
 pre_2014_project_details|stem|da0a65f62029047a|d6665ccf6e0812b0|4514fa1aa5f8b581|-1339766780||t19914.8348845355s|cb8ccbcfcd2585e6|293580|rds|local|vector|||20.498||
 pre_2014_project_funding|stem|c159c9991f112d67|fb0cb173ae842580|825dac3577d60055|-183737958||t19914.834888141s|725e3ddecc2a347a|124298|rds|local|vector|||0.125||
@@ -28,6 +31,7 @@ read_2014_2024_budget_reports|function|7fbfbaa2ba104147|||||||||||||||
 read_cip_locations|function|553c2ebfa93e7633|||||||||||||||
 read_cip_report|function|a7c8583488081dae|||||||||||||||
 read_pre_2014_program_report_text|function|73df1723957398e1|||||||||||||||
-readme|stem|95c869582cc88ef6|da3364d574bdb280|2c530c1562a7fbd1|980901812||t19914.8552637482s|e255484007059372|43|rds|local|vector|||5.795||
+readme|stem|95c869582cc88ef6|f7aa78802a761a06|2c530c1562a7fbd1|980901812||t19914.8552637482s||43|rds|local|vector|||0.309||name has empty character strings.
+readme_qmd|stem|78d38eacabc5770e|133a54c4236d60e9|2c530c1562a7fbd1|621555880|README_files*README.md*README.qmd|t19920.6460014327s|ce10462e2e55600a|8355|file|local|vector|||1.704||
 str_extract_agency_contract_id|function|92c32958c24aa152|||||||||||||||
 str_remove_trim|function|34ac6a5a85a8c18a|||||||||||||||

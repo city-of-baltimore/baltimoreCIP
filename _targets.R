@@ -30,5 +30,17 @@ tar_plan(
       budget_data = format_budget_data(budget_reports_2014_2024_src),
       bureau_xwalk = bureau_xwalk_2014_2024
     ),
-  readme = quarto::quarto_render("README.qmd", output_file = "README.md")
+  budget_reports_2014_2024_dict = load_cip_dict(
+    sheet = "FY14-FY24_CIP-Requests_Source_Dictionary",
+    file = here::here(
+      "data",
+      "FY14-FY24_CIP-Requests_Source_Dictionary.csv"
+    )
+  ),
+
+  # Render README
+  tar_quarto(
+    readme_qmd,
+    path = here::here("README.qmd")
+  )
 )

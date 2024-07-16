@@ -2,7 +2,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# baltimoreCIP
+# Baltimore City Capital Improvement Program (CIP) Data
 
 <!-- badges: start -->
 

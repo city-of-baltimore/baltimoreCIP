@@ -1,23 +1,57 @@
-# Functions for working with data frames ----
+read_2014_2024_budget_reports <- function(
+    budget_years = paste0("FY", 2014:2024)) {
+  report_files <- fs::dir_ls("files/budget")
+  report_files <- rlang::set_names(report_files, budget_years)
 
-## ---- mutate_trim_squish
-#' Modify character columns using `str_squish` and `str_trim`
-#'
-#' [mutate_trim_squish()] is a convenience function for squishing and removing
-#' whitespace from all character columns in a data frame.
-#'
-mutate_trim_squish <- function(data, side = c("both", "left", "right")) {
-  mutate(
-    data,
-    across(
-      where(is.character),
+  report_files |>
+    rlang::set_names(budget_years) |>
+    purrr::map(
       \(x) {
-        str_trim(str_squish(x), side = side)
+        x |>
+          read_cip_report(report_type = "budget") |>
+          format_cip_report()
       }
+    ) |>
+    purrr::list_rbind(names_to = "FY") |>
+    dplyr::mutate(
+      fiscal_year = parse_integer(
+        stringr::str_remove(FY, "FY")
+      ),
+      # FIXME: Parsing contract numbers provides an incomplete record and may
+      # include incorrect values. These should be identified and removed and/or
+      # the uncertainty of the values should be documented
+      contract_number = coalesce(
+        str_extract_agency_contract_id(project_title),
+        str_extract_agency_contract_id(project_desc)
+      )
     )
-  )
 }
 
+
+build_bureau_xwalk <- function() {
+  fs::dir_ls("files/agency") |>
+    set_names(fs::dir_ls("files/agency")) |>
+    map(
+      \(x) {
+        readxl::read_xls(
+          x,
+          range = "B8:E33",
+          col_names = c(
+            "bureau_program",
+            "drop_1",
+            "bureau_name",
+            "drop_2"
+          )
+        ) |>
+          select(!starts_with("drop_"))
+      }
+    ) |>
+    list_rbind(names_to = "filename") |>
+    filter(!is.na(bureau_name)) |>
+    arrange(desc(filename)) |>
+    select(!filename) |>
+    distinct(bureau_program, .keep_all = TRUE)
+}
 
 #' Get list of sheets and agency names from Agency Summary report
 #'
@@ -28,12 +62,7 @@ get_cip_agencies <- function(path) {
     sheets,
     \(x) {
       data <- suppressMessages(
-        readxl::read_xls(
-          path,
-          sheet = x,
-          skip = 0,
-          n_max = 2
-        )
+        readxl::read_xls(path, sheet = x, skip = 0, n_max = 2)
       )
 
       data <- data[[1]]
@@ -219,47 +248,99 @@ format_report_amt <- function(data) {
 }
 
 
-
-## ---- str_extract_agency_contract_id
-str_extract_agency_contract_id <- function(
-    string,
-    pattern = "(TR |Tr |TR|TR-|SWC|SWC |SWC-|WC|WC-|WC |SDC|SDC |SDC-|SC |SC|SC-|ER |ER-|ER)[:digit:]+",
-    extract_all = FALSE,
-    ...) {
-  fn <- str_extract
-
-  if (extract_all) {
-    fn <- str_extract_all
-  }
-
-  string <- fn(
-    string,
-    pattern,
-    ...
-  )
-
-  remove_pattern <- "[:space:]|[:punct:]"
-
-  if (!is.list(string)) {
-    return(str_remove_trim(toupper(string), pattern = remove_pattern))
-  }
-
-  lapply(
-    string,
-    \(x) {
-      str_remove_trim(toupper(x), pattern = remove_pattern)
-    }
-  )
+format_2014_2024_budget_reports <- function(report_data,
+                                            budget_data = NULL,
+                                            bureau_xwalk = NULL) {
+  report_data |>
+    dplyr::left_join(
+      budget_data,
+      relationship = "many-to-one",
+      na_matches = "never",
+      by = join_by(cip_number)
+    ) |>
+    dplyr::left_join(
+      bureau_xwalk,
+      relationship = "many-to-one",
+      na_matches = "never",
+      by = join_by(bureau_program)
+    ) |>
+    mutate(
+      cip_year_id = paste0(cip_number, "_", fiscal_year),
+      has_prior_request = has_prior_appropriation | fiscal_year > request_year_min # ,
+      # FIXME: Consider if request_year_min and budget_year_min should be replaced
+      # with NA values for 2014 data
+      # request_year_min = if_else(
+      #   has_prior_appropriation & (fiscal_year == request_year_min),
+      #   NA_integer_,
+      #   request_year_min
+      # ),
+      # budget_year_min = if_else(
+      #   has_prior_appropriation & budget_year_min == 2014,
+      #   NA_integer_,
+      #   budget_year_min
+      # )
+    ) |>
+    relocate(
+      starts_with("has_prior"),
+      .before = request_year_min
+    ) |>
+    relocate(
+      bureau_name,
+      .after = bureau_program
+    ) |>
+    relocate(
+      fiscal_year,
+      cip_number,
+      cip_year_id,
+      .before = everything()
+    ) |>
+    relocate(
+      FY,
+      .before = amt_type
+    ) |>
+    arrange(
+      bureau_program,
+      desc(fiscal_year),
+      cip_number,
+      source
+    )
 }
 
 
-## ---- str_remove_trim
-#' Remove part of a string matching a pattern and then trim whitespace
-#'
-#' [str_remove_trim()] is a wrapper for `str_remove` and
-#' `str_trim`. The function is used by [format_prj_data()] to
-#' remove codes from name columns.
-#'
-str_remove_trim <- function(string, pattern, side = c("both", "left", "right")) {
-  str_trim(str_remove(string, pattern), side = side)
+format_budget_data <- function(report_data) {
+  budget_funded_source <- report_data |>
+    filter(is.na(source)) |>
+    dplyr::distinct(fiscal_year, cip_number, .keep_all = TRUE) |>
+    mutate_trim_squish()
+
+  budget_funded_source |>
+    dplyr::summarise(
+      # year_new = min(fiscal_year, na.rm = TRUE),
+      project_titles = knitr::combine_words(unique(project_title)),
+      request_year_min = min(fiscal_year, na.rm = TRUE),
+      request_year_max = max(fiscal_year, na.rm = TRUE),
+      request_year_list = list(unique(fiscal_year)),
+      n_request_year = length(unique(fiscal_year)),
+      total_budget_amt = sum(budget_amt),
+      .by = cip_number
+    ) |>
+    mutate(
+      request_year_range = request_year_max - (request_year_min - 1)
+    ) |>
+    left_join(
+      budget_funded_source |>
+        filter(is.na(source), budget_amt > 0) |>
+        summarise(
+          budget_year_min = min(fiscal_year, na.rm = TRUE),
+          budget_year_max = max(fiscal_year, na.rm = TRUE),
+          n_budget_year = length(unique(fiscal_year)),
+          .by = cip_number
+        ),
+      by = join_by(cip_number)
+    ) |>
+    tidyr::replace_na(
+      replace = list(
+        n_budget_year = 0
+      )
+    )
 }

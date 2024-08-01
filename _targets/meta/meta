@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|c243ba9334fccd64|||||||||||||||
+.Random.seed|object|0bbaa13ea52777fb|||||||||||||||
 budget_reports|stem|e8a245bb829ba742|6989f99c5f325fb2|41cae5a289ea291a|-827904008||t19915.1580363337s|501e435e872586d5|346803|rds|local|vector|||1.093||
 budget_reports_2014_2024|stem|3133fa6ced07d21d|19b24a5fe911b0c0|a4eb2d3fb181747b|-799827718||t19915.1630416823s|3105dd92b3f35305|328040|rds|local|vector|||0.271||
 budget_reports_2014_2024_dict|stem|c18c7d08b638bdd2|4299f5b7af213fff|717e7aef66c5f482|-1456025355||t19920.649874715s|ea1841c12f6cfacd|1535|rds|local|vector|||0.752||
@@ -8,7 +8,7 @@ build_bureau_xwalk|function|c7f801058d330868|||||||||||||||
 bureau_xwalk_2014_2024|stem|2868bfd7e4cb34e4|09b5809e0a30bd29|a8ab767484062528|736561052||t19914.8687178093s|6b659c2397e3be5d|698|rds|local|vector|||0.565||
 cip_location_updates|object|4d771e9b8ff77960|||||||||||||||
 cip_locations_2014_2024|stem|d157325b59ca7c39|6fb335bd94e82122|cd36d38934785a75|-556313447||t19914.8486276019s|570b0bc3994ca488|5938667|rds|local|vector|||0.126||
-cip_locations_2014_2024_src|stem|872f46c65bde2558|fe1f5903c99d559f|6368d88b774e4f8b|-1222577706||t19914.8461483325s|2dc216491120c41b|5988740|rds|local|vector|||124.074||
+cip_locations_2014_2024_src|stem|872f46c65bde2558|fe1f5903c99d559f|6368d88b774e4f8b|-1222577706||t19936.586563301s|2dc216491120c41b|5988740|rds|local|vector|||24.266||
 download_pre_2014_program_reports|function|3e2b753e5f8bff2c|||||||||||||||
 format_2014_2024_budget_reports|function|7d223eb4484288ab|||||||||||||||
 format_budget_data|function|808248f1796cb875|||||||||||||||
@@ -32,6 +32,6 @@ read_cip_locations|function|553c2ebfa93e7633|||||||||||||||
 read_cip_report|function|a7c8583488081dae|||||||||||||||
 read_pre_2014_program_report_text|function|73df1723957398e1|||||||||||||||
 readme|stem|95c869582cc88ef6|f7aa78802a761a06|2c530c1562a7fbd1|980901812||t19914.8552637482s||43|rds|local|vector|||0.309||name has empty character strings.
-readme_qmd|stem|78d38eacabc5770e|133a54c4236d60e9|2c530c1562a7fbd1|621555880|README_files*README.md*README.qmd|t19920.6460014327s|ce10462e2e55600a|8355|file|local|vector|||1.704||
+readme_qmd|stem|16d3ad22eb59b199|133a54c4236d60e9|2c530c1562a7fbd1|621555880|README_files*README.md*README.qmd|t19936.5865842656s|2b81d2b1f432e486|9594|file|local|vector|||1.823||
 str_extract_agency_contract_id|function|92c32958c24aa152|||||||||||||||
 str_remove_trim|function|34ac6a5a85a8c18a|||||||||||||||

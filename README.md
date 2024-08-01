@@ -42,10 +42,14 @@ This project is organized around three main folders:
 - `R`: Scripts and functions for processing the files into a tidy data
   format using the `{tidyverse}` family of packages, `{pdftools}`,
   `{sf}`, and other packages.
-- `data`: Output data including a combined CSV file for the 2014-2024
-  reports and a GeoJSON file with the locations associated with that
-  same period. As of July 2024, DOP staff are working to compile spatial
-  data to publish along with a CSV file for the 2008-2013 reports.
+- `data`: Output data including combined CSV files for the 2008-2013
+  reports (`FY08-FY13_CIP-Budgets.csv`), 2014-2024 reports
+  (`FY14-FY24_CIP-Requests_Source.csv`), and a GeoJSON file
+  (`FY14-FY24_CIP-Requests_Locations.geojson`) with the locations
+  associated with that same period. As of July 2024, DOP staff are
+  working to compile spatial data for the 2008-2013 period. The folder
+  also includes a data dictionary for the 2014-2024 data
+  (`FY14-FY24_CIP-Requests_Source_Dictionary.csv`).
 
 ## Background
 
@@ -78,6 +82,13 @@ significant limitations:
   locations may include sidewalks, alleys, or buildings where work may
   or may not have been completed if the budgeted capital funding could
   not cover the project’s full scope and cost.
+
+There are also some differences between the 2008-2013 data and the
+2014-2024 data. The earlier period is based on program reports listing
+budgeted and programmed funding by source and fiscal year at the point
+of Board of Estimates review and approval. The later data includes both
+the earlier stages of agency requests and Planning Commission review and
+the later stages of Ordinance of Estimates adoption.
 
 Between 2023 and 2024, Baltimore City migrated contract and financial
 management systems to a cloud-based application known as

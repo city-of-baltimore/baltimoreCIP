@@ -35,7 +35,7 @@ This project is organized around three main folders:
 
 -   `files`: Required files including Microsoft Excel and PDF reports downloaded from the Baltimore City Department of Planning website. Organized into sub-folder (`agency`, `budget`, and `program`) based on report type.
 -   `R`: Scripts and functions for processing the files into a tidy data format using the `{tidyverse}` family of packages, `{pdftools}`, `{sf}`, and other packages.
--   `data`: Output data including a combined CSV file for the 2014-2024 reports and a GeoJSON file with the locations associated with that same period. As of July 2024, DOP staff are working to compile spatial data to publish along with a CSV file for the 2008-2013 reports.
+-   `data`: Output data including combined CSV files for the 2008-2013 reports (`FY08-FY13_CIP-Budgets.csv`), 2014-2024 reports (`FY14-FY24_CIP-Requests_Source.csv`), and a GeoJSON file (`FY14-FY24_CIP-Requests_Locations.geojson`) with the locations associated with that same period. As of July 2024, DOP staff are working to compile spatial data for the 2008-2013 period. The folder also includes a data dictionary for the 2014-2024 data (`FY14-FY24_CIP-Requests_Source_Dictionary.csv`).
 
 ## Background
 
@@ -49,5 +49,7 @@ It is important to note that data created based on these reports several signifi
 -   The year funds appear in the capital budget is often not the same year funds are spent. Due to constraints on the size of the capital budget, agencies have often needed to set aside funding over a multi-year period to fully fund a large scale capital project.
 -   The number and amount of the requested funds and approved capital budget is contingent on the availability of funding from local, state, and federal sources as well as agency-identified needs and commitments.
 -   Locations are identified by agencies as part of the initial capital requests submitted to the Department of Planning. These prospective locations may include sidewalks, alleys, or buildings where work may or may not have been completed if the budgeted capital funding could not cover the project's full scope and cost.
+
+There are also some differences between the 2008-2013 data and the 2014-2024 data. The earlier period is based on program reports listing budgeted and programmed funding by source and fiscal year at the point of Board of Estimates review and approval. The later data includes both the earlier stages of agency requests and Planning Commission review and the later stages of Ordinance of Estimates adoption. 
 
 Between 2023 and 2024, Baltimore City migrated contract and financial management systems to a cloud-based application known as [Workday](https://www.workday.com/). Data on the Capital Improvement Program is now stored in both Workday and a second integrated application, known as [Workday Adaptive Planning](https://www.workday.com/en-us/products/adaptive-planning/overview.html) (or Adaptive for short), that combines project information entered by agency staff with financial data.

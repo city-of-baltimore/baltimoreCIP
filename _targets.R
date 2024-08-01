@@ -9,7 +9,7 @@ tar_option_set(
 tar_source()
 
 tar_plan(
-  # Get and format data on 2008-2013 projects
+  # Get and format data on 2008-2013 projects ----
   pre_2014_report_text = read_pre_2014_program_report_text() |>
     format_pre_2014_program_report_text(),
   pre_2014_project_details = pre_2014_report_text |>
@@ -19,7 +19,7 @@ tar_plan(
   pre_2014_project_funding = pre_2014_project_details |>
     get_pre_2014_project_funding(pre_2014_project_info),
 
-  # Get locations for 2014-2024 projects
+  # Get locations for 2014-2024 projects ----
   cip_locations_2014_2024_src = read_cip_locations(),
   cip_locations_2014_2024 = cip_locations_2014_2024_src |>
     format_cip_location_data(),

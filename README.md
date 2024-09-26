@@ -29,7 +29,7 @@ for internal and public use.
 > package user manual](https://books.ropensci.org/targets/).
 
 For questions, please contact Eli Pousson, Data Lead with the Baltimore
-City Department of Planning, at eli.pousson@baltimorecity.gov{.email}.
+City Department of Planning, at eli.pousson@baltimorecity.gov.
 
 ## Organization
 

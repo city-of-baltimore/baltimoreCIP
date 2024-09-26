@@ -27,7 +27,7 @@ The goal of baltimoreCIP is to combine legacy reports and spatial data for the [
 This project is built using {targets} and {tarchetypes}: two R packages designed to support the reproducible analytical pipelines (RAPs). For more information on {targets}, see [The {targets} R package user manual](https://books.ropensci.org/targets/).
 :::
 
-For questions, please contact Eli Pousson, Data Lead with the Baltimore City Department of Planning, at eli.pousson\@baltimorecity.gov{.email}.
+For questions, please contact Eli Pousson, Data Lead with the Baltimore City Department of Planning, at eli.pousson\@baltimorecity.gov.
 
 ## Organization
 

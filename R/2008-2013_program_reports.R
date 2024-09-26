@@ -87,7 +87,15 @@ format_pre_2014_program_report_text <- function(report_text) {
     ) |>
     filter(
       text != "",
+      text != "Description:",
       text != "Amounts in Thousands"
+    ) |>
+    mutate(
+      key = if_else(
+        lag(key) == "description" & is.na(key),
+        "description",
+        key
+      )
     )
 }
 
@@ -142,7 +150,7 @@ get_pre_2014_project_details <- function(report_text) {
     ) |>
     mutate(
       flag = if_else(
-        location == "High Level Sewer Shed" & filename == "2010cp.pdf",
+       !is.na(location) & location == "High Level Sewer Shed" & filename == "2010cp.pdf",
         TRUE,
         FALSE
       )

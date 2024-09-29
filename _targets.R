@@ -10,14 +10,14 @@ tar_source()
 
 tar_plan(
   # Get and format data on 2008-2013 projects ----
-  pre_2014_report_text = read_pre_2014_program_report_text() |>
+  budget_reports_text_2008_2013 = read_pre_2014_program_report_text() |>
     format_pre_2014_program_report_text(),
-  pre_2014_project_details = pre_2014_report_text |>
+  project_details_2008_2013 = budget_reports_text_2008_2013 |>
     get_pre_2014_project_details(),
-  pre_2014_project_info = pre_2014_project_details |>
+  project_info_2008_2013 = project_details_2008_2013 |>
     get_pre_2014_project_info(),
-  pre_2014_project_funding = pre_2014_project_details |>
-    get_pre_2014_project_funding(pre_2014_project_info),
+  budget_reports_2008_2013 = project_details_2008_2013 |>
+    get_pre_2014_project_funding(project_info_2008_2013),
 
   # Get locations for 2014-2024 projects ----
   cip_locations_2014_2024_src = read_cip_locations(),

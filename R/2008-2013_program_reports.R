@@ -1,4 +1,4 @@
-# Data for program report URLs
+#' Download files from DOP website
 download_pre_2014_program_reports <- function(...) {
   pre_2014_program_reports <- tibble::tribble(
     ~Link, ~URL, ~Type,
@@ -36,25 +36,32 @@ download_pre_2014_program_reports <- function(...) {
 }
 
 
+#' Read data from PDF files in `files/program` directory
+#'
 read_pre_2014_program_report_text <- function(...) {
   # Read text from PDF files into a list
-  fs::path("files", "program") |>
+  report_files <- fs::path("files", "program") |>
     fs::dir_ls(
       glob = "*.pdf"
-    ) |>
+    )
+
+  report_files |>
     map(
       \(x) {
+        # Extra page text to vector
         page_text <- pdftools::pdf_text(x)
 
+        # Build data frame from page text
         tibble::tibble(
           text = page_text,
           page = seq_along(page_text),
-          filename = basename(x),
-          year = str_extract(basename(x), "[:digit:]+")
+          filename = fs::path_file(x),
+          year = str_extract(fs::path_file(x), "[:digit:]+")
         )
       }
     ) |>
     list_rbind() |>
+    # Separate lines into rows
     separate_longer_delim(
       text,
       delim = "\n"
@@ -64,6 +71,7 @@ read_pre_2014_program_report_text <- function(...) {
     )
 }
 
+#' Add key column based on text from 2008-2013 reports
 format_pre_2014_program_report_text <- function(report_text) {
   # Convert list into (mostly) tidy data frame
   report_text |>
@@ -79,20 +87,23 @@ format_pre_2014_program_report_text <- function(report_text) {
         str_detect(text, "Print Date:[:space:]") ~ "page footer",
         str_detect(text, "^City of Baltimore[:space:]+") ~ "page header"
       ),
+      # Fill description keys for multi-line descriptions
       key = if_else(
-        lead(key) == "description" & is.na(key),
+        is.na(key) & lead(key) == "description",
         "description",
         key
       )
     ) |>
     filter(
+      # Drop empty columns and label columns
       text != "",
       text != "Description:",
       text != "Amounts in Thousands"
     ) |>
     mutate(
+      # Fill description keys for multi-line descriptions (after dropping description label)
       key = if_else(
-        lag(key) == "description" & is.na(key),
+        is.na(key) & lag(key) == "description",
         "description",
         key
       )
@@ -149,8 +160,9 @@ get_pre_2014_project_details <- function(report_text) {
       project_title
     ) |>
     mutate(
+      # Drop duplicate column (?)
       flag = if_else(
-       !is.na(location) & location == "High Level Sewer Shed" & filename == "2010cp.pdf",
+        !is.na(location) & location == "High Level Sewer Shed" & filename == "2010cp.pdf",
         TRUE,
         FALSE
       )
@@ -192,7 +204,7 @@ get_pre_2014_project_info <- function(project_details) {
 
 get_pre_2014_project_funding <- function(project_details, project_info) {
   # Pull project funding from project details
-  project_details |>
+  budget_reports <- project_details |>
     filter(
       key %in% c("source header", "source", "total")
     ) |>
@@ -218,6 +230,7 @@ get_pre_2014_project_funding <- function(project_details, project_info) {
         amt_cols
       ),
       amt_cols = str_remove(amt_cols, fixed(source_name)),
+      # Make source_name consistent across years (check this)
       source_name = if_else(
         str_detect(
           source_name,
@@ -267,6 +280,7 @@ get_pre_2014_project_funding <- function(project_details, project_info) {
       fiscal_year = report_fy + offset_fy,
       cip_year_id = glue::glue("{cip_number}_{fiscal_year}")
     ) |>
+    # Filter to just budget year data
     filter(
       fiscal_year == report_fy
     ) |>
@@ -285,6 +299,7 @@ get_pre_2014_project_funding <- function(project_details, project_info) {
     ) |>
     mutate(
       across(
+        # Scale amounts to thousands
         ends_with("_amt"),
         \(x) {
           if_else(
@@ -295,6 +310,40 @@ get_pre_2014_project_funding <- function(project_details, project_info) {
         }
       )
     )
+
+  budget_report_totals <- budget_reports |>
+    select(
+      !c(
+        source_code, source_name,
+        amt_type, offset_fy,
+        appropriated_amt, boe_amt
+      )
+    ) |>
+    distinct() |>
+    left_join(
+      budget_reports |>
+        summarise(
+          across(
+            c(
+              appropriated_amt,
+              boe_amt
+            ),
+            \(x) {
+              sum(x, na.rm = TRUE)
+            }
+          ),
+          amt_type = "Total",
+          .by = cip_year_id
+        ),
+      by = join_by(cip_year_id)
+    )
+
+  list(
+    budget_reports,
+    budget_report_totals
+  ) |>
+    list_rbind() |>
+    arrange(cip_year_id, amt_type)
 }
 
 

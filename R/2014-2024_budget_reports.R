@@ -1,10 +1,21 @@
+#' Read 2014-2024 budget reports from XLS spreadsheets
+#'
 read_2014_2024_budget_reports <- function(
     budget_years = paste0("FY", 2014:2024)) {
   report_files <- fs::dir_ls("files/budget")
-  report_files <- rlang::set_names(report_files, budget_years)
+  # report_files <- rlang::set_names(report_files, budget_years)
+
+  fy_df <- tibble::as_tibble(
+    list(
+      "FY" = budget_years,
+      "filename" = report_files
+    )
+  )
 
   report_files |>
-    rlang::set_names(budget_years) |>
+    rlang::set_names(
+      fs::path_file(report_files)
+    ) |>
     purrr::map(
       \(x) {
         x |>
@@ -12,7 +23,10 @@ read_2014_2024_budget_reports <- function(
           format_cip_report()
       }
     ) |>
-    purrr::list_rbind(names_to = "FY") |>
+    purrr::list_rbind(names_to = "filename") |>
+    dplyr::left_join(
+      fy_df
+    ) |>
     dplyr::mutate(
       fiscal_year = parse_integer(
         stringr::str_remove(FY, "FY")
@@ -316,7 +330,7 @@ format_budget_data <- function(report_data) {
   budget_funded_source |>
     dplyr::summarise(
       # year_new = min(fiscal_year, na.rm = TRUE),
-      project_titles = knitr::combine_words(unique(project_title)),
+      project_titles = as.character(knitr::combine_words(unique(project_title))),
       request_year_min = min(fiscal_year, na.rm = TRUE),
       request_year_max = max(fiscal_year, na.rm = TRUE),
       request_year_list = list(unique(fiscal_year)),

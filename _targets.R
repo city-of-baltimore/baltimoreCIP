@@ -37,6 +37,10 @@ tar_plan(
       "FY14-FY24_CIP-Requests_Source_Dictionary.csv"
     )
   ),
+  budget_reports_2008_2024 = combine_budget_reports(
+    budget_reports_2008_2013,
+    budget_reports_2014_2024
+  ),
 
   # Render README
   tar_quarto(

@@ -37,10 +37,26 @@ tar_plan(
       "FY14-FY24_CIP-Requests_Source_Dictionary.csv"
     )
   ),
+  location_corrections = googlesheets4::read_sheet(
+    "https://docs.google.com/spreadsheets/d/16b1AAoZEmcjsrteFNkxNu4gYsIs4MFx__DuMCW9p_hk/edit?usp=sharing"
+  ) |>
+    filter(!is.na(location_corrected)) |>
+    select(!n),
+
   budget_reports_2008_2024 = combine_budget_reports(
     budget_reports_2008_2013,
     budget_reports_2014_2024
-  ),
+  ) |>
+    left_join(
+      location_corrections
+    ) |>
+    mutate(
+      location = coalesce(
+        location_corrected,
+        location
+      )
+    ) |>
+    select(!location_corrected),
 
   # Render README
   tar_quarto(

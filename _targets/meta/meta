@@ -1,17 +1,18 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|ac4d732daaf89630|||||||||||||||
+.Random.seed|object|be22787514fb345f|||||||||||||||
 budget_reports|stem|e8a245bb829ba742|6989f99c5f325fb2|41cae5a289ea291a|-827904008||t19915.1580363337s|501e435e872586d5|346803|rds|local|vector|||1.093||
-budget_reports_2008_2013|stem|b5cd1e8ecf93d827|1a0b99e8431ced10|a18a3a2ee19706bf|-1771299123||t19995.8969709106s|09a6cb8ceede33f0|128746|rds|local|vector|||0.277|There was 1 warning in mutate.ℹ In argument across....Caused by warning in if_else NAs introduced by coercion|
-budget_reports_2014_2024|stem|f8bc04b6af8c3dc6|19b24a5fe911b0c0|385122f368fdcef1|-799827718||t19995.8969656052s|e20c61478ca26502|296236|rds|local|vector|||0.642|There were 2758 warnings in dplyrsummarise.The first warning wasℹ In argument request_year_min  minfiscal_year, na.rm  TRUE.ℹ In group 1 cip_number  117002.Caused by warning in min no nonmissing arguments to min returning Infℹ Run dplyrlast_dplyr_warnings to see the 2757 remaining warnings.. There were 2300 warnings in summarise.The first warning wasℹ In argument budget_year_min  minfiscal_year, na.rm  TRUE.ℹ In group 1 cip_number  117002.Caused by warning in min no nonmissing arguments to min returning Infℹ Run dplyrlast_dplyr_warnings to see the 2299 remaining warnings.|
+budget_reports_2008_2013|stem|9ddf1d5be5c1b640|1a0b99e8431ced10|909a906953e2c4f9|-1771299123||t19995.9204907643s|ffb5ab1ae4524302|129177|rds|local|vector|||0.24|There was 1 warning in mutate.ℹ In argument across....Caused by warning in if_else NAs introduced by coercion|
+budget_reports_2008_2024|stem|da0edee566cb468f|674ef48ce82b0cdc|911640ac8e0c5ea9|-255416560||t19996.0538719379s|c056229a06bfcaec|257254|rds|local|vector|||0.021||
+budget_reports_2014_2024|stem|ac35d7eda02d4254|19b24a5fe911b0c0|e589b28d8c4d1fea|-799827718||t19995.9155204109s|a6a0d0a5a66f6b60|330675|rds|local|vector|||0.102||
 budget_reports_2014_2024_dict|stem|92f5594aaa3a41ae|4299f5b7af213fff|717e7aef66c5f482|-1456025355||t19995.8964425485s|b19fa1d4855224f2|1536|rds|local|vector|||2.013||
-budget_reports_2014_2024_src|stem|ddaae0da64d67c1e|6989f99c5f325fb2|c9f2d2a5584f5ee9|723174670||t19995.8966342384s|cf30f47796e4a1b3|348083|rds|local|vector|||0.72||
+budget_reports_2014_2024_src|stem|ec8cda0e81f7eba2|6989f99c5f325fb2|70832150e8ed0d9f|723174670||t19995.9155181511s|3a7b6f76f7d5be11|348268|rds|local|vector|||1.042||
 budget_reports_text_2008_2013|stem|4ef65320e3ef04c2|d986c0d7348d0456|d252c934cd10e76e|918577998||t19995.8966245047s|9ce32384ff9f3c36|287649|rds|local|vector|||1.226||
-build_bureau_xwalk|function|c7f801058d330868|||||||||||||||
-bureau_xwalk_2014_2024|stem|c78e1708ef41b48c|09b5809e0a30bd29|a8ab767484062528|736561052||t19995.8966250116s|b0aa1ca589c50420|699|rds|local|vector|||0.039||
+build_bureau_xwalk|function|b1170dcb84f39708|||||||||||||||
+bureau_xwalk_2014_2024|stem|c78e1708ef41b48c|09b5809e0a30bd29|ffec8c9b5544258a|736561052||t19995.9061097183s|b0aa1ca589c50420|699|rds|local|vector|||0.273||
 cip_location_updates|object|4d771e9b8ff77960|||||||||||||||
 cip_locations_2014_2024|stem|77efa25768abbaa9|6fb335bd94e82122|3b41c51525831c4c|-556313447||t19995.8966454644s|7e21d5605c8b211c|5938666|rds|local|vector|||0.135||
 cip_locations_2014_2024_src|stem|1d2af544eaee1964|fe1f5903c99d559f|6368d88b774e4f8b|-1222577706||t19995.8966094793s|e50f7e4f8103b21a|5988739|rds|local|vector|||13.592||
-combine_budget_reports|function|8e5d102a95e6619f|||||||||||||||
+combine_budget_reports|function|605cad49b57ede43|||||||||||||||
 download_pre_2014_program_reports|function|3e2b753e5f8bff2c|||||||||||||||
 format_2014_2024_budget_reports|function|7d223eb4484288ab|||||||||||||||
 format_budget_data|function|744f63325dd7eddf|||||||||||||||
@@ -20,20 +21,21 @@ format_cip_report|function|7f5f9fdc06d9ff5d|||||||||||||||
 format_pre_2014_program_report_text|function|4d41338d6222ee85|||||||||||||||
 format_report_amt|function|cbe878f437b85294|||||||||||||||
 get_cip_agencies|function|2cc60f5c1148e7b4|||||||||||||||
-get_pre_2014_project_details|function|49f341fd8f952ca1|||||||||||||||
-get_pre_2014_project_funding|function|0e07b004be156d3d|||||||||||||||
-get_pre_2014_project_info|function|556387b77fb7f05b|||||||||||||||
+get_pre_2014_project_details|function|2f8de3ae68f738fc|||||||||||||||
+get_pre_2014_project_funding|function|59fc79799cf00bc2|||||||||||||||
+get_pre_2014_project_info|function|b79df215a6388a4c|||||||||||||||
 join_cip_budget_report_data|function|a8bc6160d22a274a|||||||||||||||
 load_cip_dict|function|dd8f451157047f4e|||||||||||||||
+location_corrections|stem|82025b1ceef7758e|1a78d5caf3f00052|2c530c1562a7fbd1|-423505014||t19996.0538704128s|d23e0b4640361de0|2490|rds|local|vector|||1.235||
 mutate_trim_squish|function|20f4ec4fcd1bacb0|||||||||||||||
 path_tar_user|function|219eed3af00e7ad1|||||||||||||||
 pre_2014_project_details|stem|73dd4876648bb4f0|d6665ccf6e0812b0|f36f3895d1818a43|-1339766780||t19992.8858097908s|637ba30d9452f6d6|349216|rds|local|vector|||26.848||
 pre_2014_project_funding|stem|8da040763ee7d0ba|fb0cb173ae842580|441f2d4764dbc46c|-183737958||t19992.8816390044s|fbf516e1afb10602|150223|rds|local|vector|||0.222|There was 1 warning in mutate.ℹ In argument across....Caused by warning in if_else NAs introduced by coercion|
 pre_2014_project_info|stem|1cb5a55befc831da|26dc12c3c60731de|423c0062c87ed115|1014419261||t19992.881636028s|50d04af6432a690b|117799|rds|local|vector|||0.187||
 pre_2014_report_text|stem|4ef65320e3ef04c2|d986c0d7348d0456|e18c68da9bf6e314|119994474||t19992.8736447979s|9ce32384ff9f3c36|287649|rds|local|vector|||1.329||
-project_details_2008_2013|stem|73dd4876648bb4f0|fdae0d8dd8373be7|81b08776175a5f74|-75794644||t19995.896957148s|637ba30d9452f6d6|349216|rds|local|vector|||26.837||
-project_info_2008_2013|stem|1cb5a55befc831da|3649165404f3a047|cdae3faf5bc881fd|-1107827144||t19995.8969672609s|50d04af6432a690b|117799|rds|local|vector|||0.119||
-read_2014_2024_budget_reports|function|2428023105ddd600|||||||||||||||
+project_details_2008_2013|stem|af09530a7d6efee1|fdae0d8dd8373be7|ffad0b62df7c88ed|-75794644||t19995.9121412156s|99656a41ca98030b|349220|rds|local|vector|||27.457||
+project_info_2008_2013|stem|86d7eb93ba42b334|3649165404f3a047|d7ae3b756312ef3d|-1107827144||t19995.92048751s|76993f2ab2c7d7f6|118105|rds|local|vector|||0.16||
+read_2014_2024_budget_reports|function|e0e2586951690ec1|||||||||||||||
 read_cip_locations|function|553c2ebfa93e7633|||||||||||||||
 read_cip_report|function|a7c8583488081dae|||||||||||||||
 read_pre_2014_program_report_text|function|b95fa41d6f910cd7|||||||||||||||

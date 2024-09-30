@@ -124,7 +124,7 @@ get_pre_2014_project_details <- function(report_text) {
         str_remove(text, fixed(cip_num)),
         NA_character_
       ),
-      bureau = if_else(
+      bureau_name = if_else(
         key == "bureau",
         str_trim(
           str_remove(text, "^Board of Estimates Recommendation for:[:space:]")
@@ -155,7 +155,7 @@ get_pre_2014_project_details <- function(report_text) {
       )
     ) |>
     fill(
-      bureau,
+      bureau_name,
       cip_num,
       project_title
     ) |>
@@ -183,13 +183,13 @@ get_pre_2014_project_info <- function(project_details) {
         str_remove(text, "^Description:[:space:]"),
         collapse = " "
       ),
-      .by = c(filename, bureau, cip_num)
+      .by = c(filename, bureau_name, cip_num)
     ) |>
-    distinct(filename, bureau, cip_num, project_desc) |>
+    distinct(filename, bureau_name, cip_num, project_desc) |>
     left_join(
       project_details |>
         filter(!is.na(location) | !is.na(operating_impact_amt)) |>
-        select(filename, bureau, cip_num, project_title, location, operating_impact_amt) |>
+        select(filename, bureau_name, cip_num, project_title, location, operating_impact_amt) |>
         distinct()
     ) |>
     mutate(
@@ -199,6 +199,15 @@ get_pre_2014_project_info <- function(project_details) {
     ) |>
     rename(
       cip_number = cip_num
+    ) |>
+    mutate(
+      # FIXME: Parsing contract numbers provides an incomplete record and may
+      # include incorrect values. These should be identified and removed and/or
+      # the uncertainty of the values should be documented
+      contract_number = coalesce(
+        str_extract_agency_contract_id(project_title),
+        str_extract_agency_contract_id(project_desc)
+      )
     )
 }
 
@@ -247,7 +256,7 @@ get_pre_2014_project_funding <- function(project_details, project_info) {
       )
     ) |>
     select(
-      filename, cip_num, bureau, starts_with("source"), amt_type, amt_cols
+      filename, cip_num, bureau_name, starts_with("source"), amt_type, amt_cols
     ) |>
     mutate(
       report_fy = as.integer(str_extract(filename, "^[:digit:]+"))
@@ -294,7 +303,7 @@ get_pre_2014_project_funding <- function(project_details, project_info) {
     ) |>
     left_join(
       project_info |>
-        select(!c(fiscal_year, cip_number, filename, bureau)),
+        select(!c(fiscal_year, cip_number, filename, bureau_name)),
       by = "cip_year_id"
     ) |>
     mutate(

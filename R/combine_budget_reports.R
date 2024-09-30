@@ -1,6 +1,7 @@
 combine_budget_reports <- function(
     data_2008_2013,
-    data_2014_2024) {
+    data_2014_2024,
+    save = TRUE) {
   data_2014_2024 <- data_2014_2024 |>
     filter(amt_type == "Total") |>
     select(
@@ -21,7 +22,7 @@ combine_budget_reports <- function(
   data_2008_2013 <- data_2008_2013 |>
     filter(amt_type == "Total")
 
-  list_rbind(
+  data_2008_2024 <- list_rbind(
     list(
       data_2014_2024,
       data_2008_2013
@@ -40,4 +41,16 @@ combine_budget_reports <- function(
         total_budget_amt
       )
     )
+
+  if (!save) {
+    return(data_2008_2024)
+  }
+
+  readr::write_csv(
+    data_2008_2024,
+    fs::path(
+      "data",
+      "FY08-FY24_CIP-Budgets.csv"
+    )
+  )
 }

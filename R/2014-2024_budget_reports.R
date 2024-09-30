@@ -8,7 +8,7 @@ read_2014_2024_budget_reports <- function(
   fy_df <- tibble::as_tibble(
     list(
       "FY" = budget_years,
-      "filename" = report_files
+      "filename" = fs::path_file(report_files)
     )
   )
 
@@ -42,9 +42,14 @@ read_2014_2024_budget_reports <- function(
 }
 
 
-build_bureau_xwalk <- function() {
-  fs::dir_ls("files/agency") |>
-    set_names(fs::dir_ls("files/agency")) |>
+build_bureau_xwalk <- function(
+    path = "files/agency") {
+  path_filenames <- fs::dir_ls(path)
+
+  path_filenames |>
+    set_names(
+      fs::path_file(path_filenames)
+    ) |>
     map(
       \(x) {
         readxl::read_xls(

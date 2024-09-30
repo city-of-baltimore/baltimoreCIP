@@ -26,5 +26,18 @@ combine_budget_reports <- function(
       data_2014_2024,
       data_2008_2013
     )
-  )
+  ) |>
+    # Drop columns that only appear in one of the data frames
+    select(
+      !c(
+        starts_with("source"),
+        report_fy,
+        offset_fy,
+        project_titles,
+        FY,
+        budget_amt,
+        total_amt,
+        total_budget_amt
+      )
+    )
 }

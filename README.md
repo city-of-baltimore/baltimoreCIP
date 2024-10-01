@@ -18,8 +18,8 @@ public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostat
 
 The goal of baltimoreCIP is to combine legacy reports and spatial data
 for the [Baltimore City Capital Improvement
-Program](https://planning.baltimorecity.gov/) into a tidy data source
-for internal and public use.
+Program](https://planning.baltimorecity.gov/planning-capital-improvement)
+into a tidy data source for internal and public use.
 
 > [!TIP]
 >
@@ -35,21 +35,28 @@ City Department of Planning, at eli.pousson@baltimorecity.gov.
 
 This project is organized around three main folders:
 
-- `files`: Required files including Microsoft Excel and PDF reports
-  downloaded from the Baltimore City Department of Planning website.
-  Organized into sub-folder (`agency`, `budget`, and `program`) based on
+- `files`: Required files including public Microsoft Excel and PDF
+  reports downloaded from the [CIP Reports and Resources
+  page](https://planning.baltimorecity.gov/planning-capital-improvement/maps)
+  on the Baltimore City Department of Planning website. Files are
+  organized into sub-folder (`agency`, `budget`, and `program`) based on
   report type.
 - `R`: Scripts and functions for processing the files into a tidy data
   format using the `{tidyverse}` family of packages, `{pdftools}`,
   `{sf}`, and other packages.
-- `data`: Output data including combined CSV files for the 2008-2013
-  reports (`FY08-FY13_CIP-Budgets.csv`), 2014-2024 reports
-  (`FY14-FY24_CIP-Requests_Source.csv`), and a GeoJSON file
-  (`FY14-FY24_CIP-Requests_Locations.geojson`) with the locations
-  associated with that same period. As of July 2024, DOP staff are
-  working to compile spatial data for the 2008-2013 period. The folder
-  also includes a data dictionary for the 2014-2024 data
-  (`FY14-FY24_CIP-Requests_Source_Dictionary.csv`).
+- `data`: Output data including:
+- combined CSV files for the 2008-2013 reports
+  (`FY08-FY13_CIP-Budgets.csv`),
+- 2014-2024 reports (`FY14-FY24_CIP-Requests_Source.csv`),
+- a GeoJSON file (`FY14-FY24_CIP-Requests_Locations.geojson`) with the
+  locations associated with that same period,
+- and a combined CSV file (`FY08-FY24_CIP-Budgets.csv`) with reports
+  from both time periods (including only the totals from the 2014-2024
+  reports and a summary total for the 2008-2013 reports)
+
+As of July 2024, DOP staff are working to compile spatial data for the
+2008-2013 period. The folder also includes a data dictionary for the
+2014-2024 data (`FY14-FY24_CIP-Requests_Source_Dictionary.csv`).
 
 ## Background
 
@@ -68,19 +75,20 @@ significant limitations:
 
 - The budgeted amount and previously appropriated amounts do *not*
   account for transfers between accounts (transfers are reviewed and
-  approved by the Planning Commission outside the CIP process)
-- The year funds appear in the capital budget is often not the same year
-  funds are spent. Due to constraints on the size of the capital budget,
-  agencies have often needed to set aside funding over a multi-year
-  period to fully fund a large scale capital project.
+  approved by the Planning Commission outside the CIP process).
+- The year funds are *appropriated* in the capital budget is often not
+  the same year funds are *spent* or the year that work is completed.
+  Due to constraints on the size of the capital budget, agencies have
+  often needed to set aside funding over a multi-year period to fully
+  fund a large scale capital project.
 - The number and amount of the requested funds and approved capital
   budget is contingent on the availability of funding from local, state,
   and federal sources as well as agency-identified needs and
   commitments.
 - Locations are identified by agencies as part of the initial capital
   requests submitted to the Department of Planning. These prospective
-  locations may include sidewalks, alleys, or buildings where work may
-  or may not have been completed if the budgeted capital funding could
+  locations may include sidewalks, alleys, or buildings where work *may
+  or may not* have been completed if the budgeted capital funding could
   not cover the project’s full scope and cost.
 
 There are also some differences between the 2008-2013 data and the

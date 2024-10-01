@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|9df7b77d5c8852c1|||||||||||||||
+.Random.seed|object|ffa3abd386b909fe|||||||||||||||
 budget_reports|stem|e8a245bb829ba742|6989f99c5f325fb2|41cae5a289ea291a|-827904008||t19915.1580363337s|501e435e872586d5|346803|rds|local|vector|||1.093||
 budget_reports_2008_2013|stem|9ddf1d5be5c1b640|1a0b99e8431ced10|909a906953e2c4f9|-1771299123||t19995.9204907643s|ffb5ab1ae4524302|129177|rds|local|vector|||0.24|There was 1 warning in mutate.ℹ In argument across....Caused by warning in if_else NAs introduced by coercion|
 budget_reports_2008_2024|stem|da0edee566cb468f|674ef48ce82b0cdc|cd9d96978966874f|-255416560||t19996.0613473853s|c056229a06bfcaec|257254|rds|local|vector|||0.155||
@@ -40,6 +40,6 @@ read_cip_locations|function|553c2ebfa93e7633|||||||||||||||
 read_cip_report|function|a7c8583488081dae|||||||||||||||
 read_pre_2014_program_report_text|function|b95fa41d6f910cd7|||||||||||||||
 readme|stem|95c869582cc88ef6|f7aa78802a761a06|2c530c1562a7fbd1|980901812||t19914.8552637482s||43|rds|local|vector|||0.309||name has empty character strings.
-readme_qmd|stem|d92516f3974981f4|133a54c4236d60e9|2c530c1562a7fbd1|621555880|README_files*README.md*README.qmd|t19997.6045645459s|92e4fd460100bef1|10394|file|local|vector|||2.152||
+readme_qmd|stem|dd4e2ca99d39fae1|133a54c4236d60e9|2c530c1562a7fbd1|621555880|README_files*README.md*README.qmd|t19997.6477821933s|43f2a09de54df1a7|11098|file|local|vector|||1.995||
 str_extract_agency_contract_id|function|92c32958c24aa152|||||||||||||||
 str_remove_trim|function|34ac6a5a85a8c18a|||||||||||||||

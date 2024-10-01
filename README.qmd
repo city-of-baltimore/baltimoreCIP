@@ -33,12 +33,15 @@ For questions, please contact Eli Pousson, Data Lead with the Baltimore City Dep
 
 This project is organized around three main folders:
 
--   `files`: Required files including public Microsoft Excel and PDF reports downloaded from the [CIP Reports and Resources page](https://planning.baltimorecity.gov/planning-capital-improvement/maps) on the Baltimore City Department of Planning website. Files are organized into sub-folder (`agency`, `budget`, and `program`) based on report type.
+-   `files`: Required files including public Microsoft Excel and PDF reports downloaded from the [CIP Reports and Resources page](https://planning.baltimorecity.gov/planning-capital-improvement/maps) on the Baltimore City Department of Planning website. Files are organized into sub-folder (`agency`, `budget`, and `program`) based on report type. PDF program reports for 2008-2013 can also be downloaded using the `download_pre_2014_program_reports()` function.
 -   `R`: Scripts and functions for processing the files into a tidy data format using the `{tidyverse}` family of packages, `{pdftools}`, `{sf}`, and other packages.
--   `data`: Output data including:
+-   `data`: Output data based on the reports in both CSV and GeoJSON format.
+
+The [data folder](https://github.com/city-of-baltimore/baltimoreCIP/tree/main/data) contains the following files for public and City use:
+
   - combined CSV files for the 2008-2013 reports (`FY08-FY13_CIP-Budgets.csv`),
-  - 2014-2024 reports (`FY14-FY24_CIP-Requests_Source.csv`),
-  - a GeoJSON file (`FY14-FY24_CIP-Requests_Locations.geojson`) with the locations associated with that same period,
+  - 2014-2024 reports (`FY14-FY24_CIP-Requests_Source.csv`) including both original data and summary fields,
+  - a GeoJSON file (`FY14-FY24_CIP-Requests_Locations.geojson`) with the locations associated with the 2014-2024 period,
   - and a combined CSV file (`FY08-FY24_CIP-Budgets.csv`) with reports from both time periods (including only the totals from the 2014-2024 reports and a summary total for the 2008-2013 reports)
 
 As of July 2024, DOP staff are working to compile spatial data for the 2008-2013 period. The folder also includes a data dictionary for the 2014-2024 data (`FY14-FY24_CIP-Requests_Source_Dictionary.csv`).
